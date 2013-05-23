@@ -15,10 +15,13 @@
 <link rel="stylesheet" type="text/css" href="CSS/messages.css" />
 <link rel="stylesheet" type="text/css" href="CSS/lightwindow.css" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="CSS/south-street/jquery-ui-1.10.3.custom.css">
 </head>
 <body>
   <header>
-    <h1><?php echo $ApplicationName; ?></h1> 
+      <h1><?php echo $ApplicationName; ?></h1>
+      <small>Desarrollado en HTML5, CSS3, JQuery y más... por @gdloacev</small>
   </header>
   <nav>
     <ul>
@@ -47,6 +50,8 @@
   <script src="Scripts/prototype.js"></script>
   <script src="Scripts/effects.js"></script>
   <script src="Scripts/lightwindow.js"></script>
+  <script src="Scripts/jquery.timeago.js"></script>
+  <script src="Scripts/jquery-ui-1.10.3.custom.js"></script>
   <script src="Scripts/codigito.js"></script>
 </body>
 </html>

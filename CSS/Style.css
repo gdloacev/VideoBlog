@@ -1,3 +1,6 @@
+a:visited{
+	color: #FFF;
+}
 body{
 	background: url('../imagenes_html/newAvatar.jpg'), #034369;
 	background-position: 30% 2%, 0;
@@ -17,12 +20,16 @@ header{
 	padding: 1em 0;
 	width: 100%;
 }
+header h1{
+	margin: 0.3em 0;
+}
 footer{
 	background: #00B258;
 	box-shadow: #64A8D1 -3px -3px 10px;
 	display: block;
 	margin: 0;
 	padding: 0.5em;
+	width: 99%;
 }
 nav{
 	background: #23597A;
@@ -59,14 +66,16 @@ nav ul li:hover, nav ul li:hover a{
 	transform: scale(1.05);
 }
 #login{
-	background: rgba(0,178,88,0.4);
+	background: #23597A;
+	border: solid 3px #64A8D1;
 	border-radius: 0.5em;
-	left: 75%;
+	font-size: 0.8em;
 	padding: 0.5em;
 	position: absolute;
-	top: 3.5%;
+	left: 78.5%;
 	text-align: left;
-	width: 20%;
+	top: 0.5%;
+	width: 16%;
 }
 #messages{
 	background: #0969A2;

@@ -36,10 +36,11 @@
 		header('Location:index.php');
 	}
 ?>
-    <form id="loginForm" method="post" action="index.php">
+
         <?php if(!isset($_SESSION['UserName'])) {?>
+       	    <form id="loginForm" method="post" action="index.php">
                     <label for="tbUser">Usuario:</label>
-                    <input class="TextBox" id="tbUser" name="tbUser" type="text" placeholder="Nombre de Usuario"required value="<?php echo Value('tbUser','P'); ?>" />
+                    <input class="TextBox" id="tbUser" name="tbUser" type="text" placeholder="Nombre de Usuario" required autofocus value="<?php echo Value('tbUser','P'); ?>" />
                     <br/>
                     <label for="tbPassword">Contraseña:</label>
                     <input type="password" class="TextBox" id="tbPassword" name="tbPassword" placeholder="Contraseña" autocomplete="off" required/>
@@ -48,9 +49,10 @@
                     <br/>
                 	<a href="NewUser.php">¿No eres usuario?... Registrate</a>
                 	<?php if(isset($LoginError)) { ?>
-                    <p id="Error">
-                        <?php echo $LoginError; ?>
-                    </p>
+	                	<div id="dialog-message" title="Acceso Denegado">
+                    		<p id="Error"><?php echo $LoginError; ?></p>
+						</div>
+			</form>
                     <?php } ?>
         <?php } else {?>
                 <article id="info_usuario">
@@ -71,4 +73,3 @@
 					<?php }?>
 	            </article>
         <?php }?>
-    </form>

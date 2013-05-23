@@ -1,5 +1,6 @@
 figcaption{
-	padding: 0.2em;
+	padding: 0.4em;
+	text-align: left;
 }
 figure{
 	margin: 0 0.5em 0 0;
@@ -24,15 +25,17 @@ figure a:hover img{
 	display: inline-block;
 	margin: 0 0.5em 0 0;
 	max-height: 500px;
-	text-shadow: rgba(0,0,0,0.7) 2px 2px 10px;
+	text-shadow: rgba(0,0,0,0.3) 2px 2px 10px;
 	vertical-align: top;
 	width: 30%;
 }
 #messages article>div{
-	color: #FE8C00;
-	font-weight: bold;
+	font-family: 'Arvo', serif;
 	padding: 1em 0.5em;
 	text-align: left;
+}
+#messages article>div a:visited{
+	color: navy;
 }
 #messages article div[id ^= 'tools']{
 	background: #23597A;

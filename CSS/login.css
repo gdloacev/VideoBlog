@@ -1,5 +1,6 @@
 #Error{
-	color: #F00;
+	color: #FFF;
+	font-family: 'Open Sans', sans-serif;
 	font-weight: bold;
 	text-align: center;
 	text-shadow: rgba(255,255,255,0.5) 2px 2px 5px;
@@ -15,20 +16,20 @@
 	color: #FFF;
 	cursor: pointer;
 	display: inline-block;
-	height: 3em;
+	height: 2.5em;
 	padding: 0.5em 1em;
 	margin: 0 0.5em 0 0;
 	max-height: 4em;
 	transition: all 0.2s ease;
 	vertical-align: top;
-	width: 5em;
+	width: 6em;
 }
 #info_usuario li a{
-	height: 100%;
+	padding: 0;
 	text-align: center;
 	text-decoration: none;
 	transition: all 0.2s ease;
-	vertical-align: baseline;
+	vertical-align: top;
 	width: 100%;
 }
 #info_usuario li:hover, #info_usuario li a:hover{
@@ -44,13 +45,17 @@
 }
 #info_usuario ul{
 	list-style: none;
+	padding: 0;
+}
+#loginForm{
+	text-align: right;
 }
 #loginForm a{
 	color: #FFF;
 	display: inline-block;
 	font-size: 0.8em;
 	font-weight: bold;
-	padding: 0;
+	padding: 0.5em;
 }
 #loginForm input[type="submit"]{
 	background: #0969A2;
@@ -58,9 +63,7 @@
 	color: #FFF;
 	font-family: 'Open Sans', sans-serif;
 	font-size: 1em;
-	left: 70%;
 	padding: 0.3em 0.6em;
-	position: relative;
 	transition: all 0.2s ease;
 }
 #loginForm input[type="submit"]:hover{
@@ -71,6 +74,6 @@
 }
 #loginForm input[type="text"], #loginForm input[type="password"]{
 	margin: 2% 0;
-	width: 90%;
+	width: 60%;
 }
 

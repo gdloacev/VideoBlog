@@ -14,20 +14,7 @@
 			u.id as \'UserId\',
 			m.Message,
 			m.Message,
-			concat(cast(case
-				when month(m.DateFrom) = 1 then \'Enero\'
-				when month(m.DateFrom) = 2 then \'Febrero\'
-				when month(m.DateFrom) = 3 then \'Marzo\'
-				when month(m.DateFrom) = 4 then \'Abril\'
-				when month(m.DateFrom) = 5 then \'Mayo\'
-				when month(m.DateFrom) = 6 then \'Junio\'
-				when month(m.DateFrom) = 7 then \'Julio\'
-				when month(m.DateFrom) = 8 then \'Agosto\'
-				when month(m.DateFrom) = 9 then \'Septiembre\'
-				when month(m.DateFrom) = 10 then \'Octubre\'
-				when month(m.DateFrom) = 11 then \'Noviembre\'
-				when month(m.DateFrom) = 12 then \'Diciembre\'
-			end as char), \' \', day(m.DateFrom), \', \', year(m.DateFrom)) as \'Date\',
+			m.DateFrom as \'Date\',
 			date_format(m.DateFrom,\'%r\') as \'Time\',
 			m.Title,
 			concat_ws(\' \',u.FirstName,u.LastName) as \'Name\',
@@ -76,19 +63,12 @@
 									</a>
 								<?php } ?>
 							</figure>
-							<figcaption>
-								<?php 
-									echo '<small><strong>Titulo:</strong>' . ' <span>' . $row['Title'] . '</span>';
-									echo ' <strong>Por:</strong>' . ' <span>' . $row['Name'] . '</span>';
-									echo ' <strong>Fecha:</strong>' . ' <span>' . $row['Date'] . ' - ' . $row['Time'] . '</span></small>'; 
-								?>
-							</figcaption>
 							<div>
 								<?php
-									if( strlen($row['Message']) > 600 )
+									if( strlen($row['Message']) > 100 )
 									{
 										$row['Message']=str_replace(chr(13),"<br/>",$row['Message']);
-										echo substr($row['Message'],0,600);
+										echo substr($row['Message'],0,100);
 										echo ' '.'<a href="Message.php?id=' . $row['TID'] . '">Leer Mas...</a>';
 									}
 									else
@@ -98,6 +78,13 @@
 										echo ' '.'<a href="Message.php?id=' . $row['TID'] . '">Leer Mas...</a>';
 								}?>
 					  		</div>
+							<figcaption>
+								<?php 
+									echo '<small><strong>Titulo:</strong>' . ' <span>' . $row['Title'] . '</span><br/>';
+									echo ' <strong>Por:</strong>' . ' <span>' . $row['Name'] . '</span>';
+									echo ' <strong>Publicado:</strong>' . ' <time class="timeago" datetime="' . $row['Date'] . '"></time></small>'; 
+								?>
+							</figcaption>
 						<?php }
 						if(isset($_SESSION['UserId']) && $_SESSION['UserName'] == "admin")
 						{ ?>
