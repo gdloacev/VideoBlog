@@ -1,0 +1,4 @@
+article{background:#FFF;border-radius:1em;box-shadow:rgba(0,0,0,0.5) 5px 5px 10px;color:#007439;margin:0 auto;padding:1em;width:30%}article form{text-align:justify;width:100%}
+article form input{display:block}article form input[type="submit"]{background:#0969a2;border-radius:.4em;color:#FFF;font-family:'Open Sans',sans-serif;font-size:1em;left:80%;margin-top:1em;padding:.3em .6em;position:relative;transition:all .5s ease}
+article form input[type="submit"]:hover{background:#034369;color:#FFF;cursor:pointer;transform:scale(1.05)}article form input[type="text"],article form textarea{font-family:'Open Sans',sans-serif;width:90%}
+article form select{font-family:'Open Sans',sans-serif}article h2{text-align:justify}section{background:#0969a2;height:35em;padding:1em 0 0 0}

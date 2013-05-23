@@ -1,0 +1,60 @@
+figcaption{
+	padding: 0.2em;
+}
+figure{
+	margin: 0 0.5em 0 0;
+	padding: 0;
+}
+figure a{
+	transition: all 0.2s ease;
+}
+figure a img{
+	border: solid 5px rgba(0,0,0,0.5);
+	height: 350px;
+	transition: all 0.5s ease;
+	width: 100%;
+}
+figure a:hover img{
+	transform: scale(1.1);
+}
+#messages article{
+	background: #3D9AD1;
+	border-radius: 0.2em;
+	box-shadow: rgba(0,0,0,0.5) 2px 2px 10px;
+	display: inline-block;
+	margin: 0 0.5em 0 0;
+	max-height: 500px;
+	text-shadow: rgba(0,0,0,0.7) 2px 2px 10px;
+	vertical-align: top;
+	width: 30%;
+}
+#messages article>div{
+	color: #FE8C00;
+	font-weight: bold;
+	padding: 1em 0.5em;
+	text-align: left;
+}
+#messages article div[id ^= 'tools']{
+	background: #23597A;
+	border-top: solid 1px #034369;
+	display: none;
+	font-size: 80%;
+	margin: 0;
+	padding: 2%;
+	text-align: right;
+	width: 96%;
+}
+#messages article div[id ^= 'tools'] a{
+	color: #FFF;
+	margin: 2%;
+	padding: 0.5em 1em;
+	text-align: center;
+	text-decoration: none;
+	transition: all 0.2s ease;
+	vertical-align: top;
+	width: 20%;
+}
+#messages article div[id ^= 'tools'] a:hover{
+	background: #FE8C00;
+	transform: scale(1.05);
+}

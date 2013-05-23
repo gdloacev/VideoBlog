@@ -4,16 +4,6 @@
 		session_start();
 	}
 ?>
-<style type="text/css">
-<!--
-#negrita {
-	font-size: 14px;
-	font-weight: bold;
-}
--->
-</style>
-
-<div>
 	<?php 
 		$Index = new Index(); 
 		$DBConn = $Index -> ConnectDB();
@@ -49,8 +39,7 @@
 			join udtthread t
 				on m.idThread = t.id
 		where
-			u.id = 1
-			and t.idType = 1
+			t.idType = 1
 		order by
 			m.DateFrom desc';
 				
@@ -60,29 +49,7 @@
 		{
 			while($row = @mysql_fetch_array($Results))
 			{ ?>
-				<div id="Messages">
-						<div id="negrita">
-							<?php 
-								echo 'Asunto:' . ' <span>' . $row['Title'] . '</span><br>';
-								echo 'Por:' . ' <span>' . $row['Name'] . '</span><br>';
-								echo 'Fecha:' . ' <span>' . $row['Date'] . ' - ' . $row['Time'] . '</span>'; 
-							?>
-						</div>
-				  <div>
-					<?php
-						if( strlen($row['Message']) > 600 )
-						{
-							$row['Message']=str_replace(chr(13),"<br>",$row['Message']);
-							echo substr($row['Message'],0,600);
-							echo ' '.'<a href="Message.php?id=' . $row['TID'] . '">Leer Mas...</a>';
-						}
-						else
-						{
-							$row['Message']=str_replace(chr(13),"<br>",$row['Message']);
-							echo $row['Message'];
-							echo ' '.'<a href="Message.php?id=' . $row['TID'] . '">Leer Mas...</a>';
-						}?>
-							</div>
+				<article id=<?php echo($row['id']);?>>
 						<?php	
 						$QueryImages = 
 						'select 
@@ -92,38 +59,59 @@
 							udtmessageimages mi
 							join udtmessage m 
 								on mi.idMessage = m.id
-						where m.id = ' . $row['id'];
+						where m.id = ' . $row['id'] .
+						' limit 0,1';
 						
 						$DBConn2 = $Index -> ConnectDB();
 						$ImageResults = @mysql_query($QueryImages,$DBConn2);
 						
 						if(@mysql_num_rows($ImageResults) > 0)
 						{?>
-							<div style="margin-top:14px;text-align:center;">
+							<figure>
 								<?php
 								while($rowImage = @mysql_fetch_array($ImageResults))
 								{?>
-									<a target="_blank" class="lightwindow page-options" href="Images/<?php echo $rowImage['Path'];?>">
-										<img style="height:25%;width:25%;" alt="<?php echo $rowImage['Title']; ?>" src="Images/<?php echo $rowImage['Path'];?>">
+									<a target="_blank" class="lightwindow page-options" href="images_blog/<?php echo $rowImage['Path'];?>">
+										<img alt="<?php echo $rowImage['Title']; ?>" src="images_blog/<?php echo $rowImage['Path'];?>">
 									</a>
 								<?php } ?>
-							</div>
+							</figure>
+							<figcaption>
+								<?php 
+									echo '<small><strong>Titulo:</strong>' . ' <span>' . $row['Title'] . '</span>';
+									echo ' <strong>Por:</strong>' . ' <span>' . $row['Name'] . '</span>';
+									echo ' <strong>Fecha:</strong>' . ' <span>' . $row['Date'] . ' - ' . $row['Time'] . '</span></small>'; 
+								?>
+							</figcaption>
+							<div>
+								<?php
+									if( strlen($row['Message']) > 600 )
+									{
+										$row['Message']=str_replace(chr(13),"<br/>",$row['Message']);
+										echo substr($row['Message'],0,600);
+										echo ' '.'<a href="Message.php?id=' . $row['TID'] . '">Leer Mas...</a>';
+									}
+									else
+									{
+										$row['Message']=str_replace(chr(13),"<br>",$row['Message']);
+										echo $row['Message'];
+										echo ' '.'<a href="Message.php?id=' . $row['TID'] . '">Leer Mas...</a>';
+								}?>
+					  		</div>
 						<?php }
-						if(isset($_SESSION['UserId']) && $_SESSION['UserId'] == 1)
+						if(isset($_SESSION['UserId']) && $_SESSION['UserName'] == "admin")
 						{ ?>
-							<div style="width:100%;margin-top:10px;text-align:right;background:#99CCFF;">
-								Herramientas de Usuario:
-								<a href="MessageDelete.php?id=<?php echo $row['id'];?>">Borrar</a>, 
-								<a href="MessageEdit.php?id=<?php echo $row['id'];?>">Modificar</a>,
-								<a href="Reply.php?id=<?php echo $row['TID'];?>">Responder</a>
+							<div id=<?php echo('tools' . $row['id']); ?>>
+								<a href="MessageDelete.php?id=<?php echo $row['id'];?>">Borrar</a>
+								<a href="MessageEdit.php?id=<?php echo $row['id'];?>">Modificar</a>
+								<a href="Reply.php?id=<?php echo $row['TID'];?>">Comentar</a>
 							</div>
 						<?php } else if(isset($_SESSION['UserId'])) {?>
-							<div style="width:100%;margin-top:10px;text-align:right;background:#99CCFF;">
-								Herramientas de Usuario:
-								<a href="Reply.php?id=<?php echo $row['TID'];?>">Responder</a>
+							<div id=<?php echo('tools' . $row['id']); ?>>
+								<a href="Reply.php?id=<?php echo $row['TID'];?>">Comentar</a>
 							</div>
 						<?php } ?>
-				</div>						
+				</article>						
 			<?php }
 			@mysql_free_result($Results);
 			@mysql_close($DBConn);
@@ -203,4 +191,3 @@
 			@mysql_close($DBConn);
 		}
 	?>
-</div>

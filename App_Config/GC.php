@@ -1,3 +1,3 @@
 <?php 
-	$ApplicationName = 'Testing';
+	$ApplicationName = 'Video-Blog de Oscar Aceves';
 ?>

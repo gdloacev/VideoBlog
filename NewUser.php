@@ -60,91 +60,66 @@
 			$DBConn = $Index -> ConnectDB();
 			
 			$Query = 'insert into udtuser (FirstName, LastName, UserName, 
-			Passwrd, Mail, DateFrom, Active, ShowAlways) values (
+			Passwrd, Mail, DateFrom, Active) values (
 			\''. $FirstName .'\',
 			\''. $LastName .'\',
 			\''. $User .'\',
 			aes_encrypt(\''. $Password .'\',\'index!secure$key\'),
 			\''. $Mail .'\',
 			Now(),
-			1,
-			0)';
-			
+			1)';
+			echo $Query;
 			mysql_query($Query,$DBConn);
 			mysql_close($DBConn);
 			header('Location:index.php');
 		}
 	}
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="es">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset="utf-8" />
 <title><?php echo $ApplicationName; ?></title>
 <link rel="stylesheet" href="CSS/Style.css" type="text/css" />
+<link rel="stylesheet" href="CSS/user.css" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
     <body>
-    	<div style="width:700px;border:1px solid #003366;">
-        <form method="post" action="NewUser.php">
-        	<table>
-            	<tr>
-                	<td style="text-align:right;">
-                    	Nombre:
-                    </td>
-                    <td style="text-align:left;">
-                   	  <input type="text" name="tbFirstName" id="tbFirstName" value="<?php echo Value('tbFirstName','P');?>" />
-                    </td>
-                </tr>
-                <tr>
-                	<td style="text-align:right;">
-                    	Apellido:
-                    </td>
-                    <td style="text-align:left;">
-                   	  <input type="text" name="tbLastName" id="tbLastName" value="<?php echo Value('tbLastName','P');?>" />
-                    </td>
-                </tr>
-                <tr>
-                	<td style="text-align:right;">
-                    	Usuario:
-                    </td>
-                    <td style="text-align:left;">
-                   	  <input type="text" name="tbUser" id="tbUser" value="<?php echo Value('tbUser','P');?>" />
-                    </td>
-                </tr>
-                <tr>
-                	<td style="text-align:right;">
-                    	Contraseña:
-                    </td>
-                    <td style="text-align:left;">
-                   	  <input type="password" name="tbPassword" id="tbPassword" value="<?php echo Value('tbPassword','P');?>" />
-                    </td>
-                </tr>
-                <tr>
-                	<td style="text-align:right;">
-                    	Verifica Contraseña:
-                    </td>
-                    <td style="text-align:left;">
-                   	  <input type="password" name="tbPassword2" id="tbPassword2"  value="<?php echo Value('tbPassword2','P');?>" />
-                    </td>
-                </tr>
-                <tr>
-                	<td style="text-align:right;">
-                    	E-Mail:
-                    </td>
-                    <td style="text-align:left;">
-                   	  <input type="text" name="tbMail" id="tbMail" value="<?php echo Value('tbMail','P');?>" />
-                    </td>
-                </tr>
-                <tr>
-                	<td colspan="2"><input type="submit" name="btnSaveUser" id="btnSaveUser" value="Enviar" /></td>
-                </tr>
-				<tr>
-					<td colspan="2">
-						<?php if(isset($Error)) { echo $Error;} ?>
-					</td>
-				</tr>
-            </table>
-            </form>
-        </div>
+	    <header>
+	    	<h1><?php echo $ApplicationName; ?></h1> 
+	  	</header>
+		  <nav>
+		    <ul>
+		      <li><a href="./">Inicio</a></li>
+		    </ul>
+		  </nav>
+    	<section>
+    		<article>
+	    		<h2>Nuevo Usuario:</h2>
+		        <form method="post" action="NewUser.php">
+		                	<label for="tbFirstName">Nombre:</label>
+		                    <input type="text" class="TextBox" name="tbFirstName" id="tbFirstName" value="<?php echo Value('tbFirstName','P');?>" autofocus required/>
+		                	<label for="tbLastName">Apellido:</label>
+		                   	<input type="text" class="TextBox" name="tbLastName" id="tbLastName" value="<?php echo Value('tbLastName','P');?>" required/>
+		                	<label for="tbUser">Usuario:</label>
+		                   	<input type="text" class="TextBox" name="tbUser" id="tbUser" value="<?php echo Value('tbUser','P');?>" required/>
+		                	<label for="tbPassword">Contraseña:</label>
+		                   	<input type="password" class="TextBox" name="tbPassword" id="tbPassword" value="<?php echo Value('tbPassword','P');?>" required/>
+		                	<label for="tbPassword2">Verifica Contraseña:</label>
+							<input type="password" class="TextBox" name="tbPassword2" id="tbPassword2" value="<?php echo Value('tbPassword2','P');?>" required/>
+		                	<label for="tbMail">E-Mail:</label>
+		                   	<input type="text" class="TextBox" name="tbMail" id="tbMail" value="<?php echo Value('tbMail','P');?>" required/>
+							<input type="submit" name="btnSaveUser" id="btnSaveUser" value="Enviar" />
+							<p id="Error">
+								<?php if(isset($Error)) { echo $Error;} ?>
+							</p>
+		           </form>
+	           </article>
+        </section>
+	  <footer>
+	    <small>Copyright &copy; 2013. Todos los derechos reservados. Oscar Aceves.</small>
+	  </footer>
+	<!-- JavaScript -->
+  	<script src="Scripts/prefixfree.min.js"></script>
     </body>
 </html>

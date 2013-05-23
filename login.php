@@ -36,40 +36,39 @@
 		header('Location:index.php');
 	}
 ?>
-<div id="Main">
-    <form id="LoginForm" method="post" action="index.php">
+    <form id="loginForm" method="post" action="index.php">
         <?php if(!isset($_SESSION['UserName'])) {?>
-            <table>
-                <tr>
-                    <?php if(isset($LoginError)) { ?>
-                    <td style="color:#FFFFFF;background:#FF0000;padding:3px;text-align:center;border:1px solid #FF0000;" colspan="4">
+                    <label for="tbUser">Usuario:</label>
+                    <input class="TextBox" id="tbUser" name="tbUser" type="text" placeholder="Nombre de Usuario"required value="<?php echo Value('tbUser','P'); ?>" />
+                    <br/>
+                    <label for="tbPassword">Contraseña:</label>
+                    <input type="password" class="TextBox" id="tbPassword" name="tbPassword" placeholder="Contraseña" autocomplete="off" required/>
+                    <br/>
+                    <input type="submit" name="btnLogin" id="btnLogin" value="Accesar" />
+                    <br/>
+                	<a href="NewUser.php">¿No eres usuario?... Registrate</a>
+                	<?php if(isset($LoginError)) { ?>
+                    <p id="Error">
                         <?php echo $LoginError; ?>
-                    </td>
+                    </p>
                     <?php } ?>
-                    <td>Usuario</td>
-                    <td><input class="TextBox" id="tbUser" name="tbUser" type="text" value="<?php echo Value('tbUser','P'); ?>" /></td>
-                    <td>Contraseña</td>
-                    <td><input class="TextBox" id="tbPassword" name="tbPassword" type="password" /></td>
-                    <td><input type="submit" name="btnLogin" id="btnLogin" value="Entrar" /></td>
-                </tr>
-                <tr>
-                	<td colspan="6"><a href="NewUser.php">¿No eres usuario?... Registrate</a></td>
-                </tr>
-            </table>
         <?php } else {?>
-            <table>
-                <tr>
-                    <td>
-                        Bienvenido <?php echo Value('FullName','S'); ?> 
-                        <a href="login.php?SessionOption=Logout">Salir</a>
-                    </td>
-                </tr>
-				<?php if($_SESSION['UserId'] == 1) { ?>
-                <tr>
-                	<td colspan="6"><a href="NewThread.php">Nueva Discuci&oacute;n</a></td>
-                </tr>
-				<?php } ?>
-            </table>
+                <article id="info_usuario">
+	                <p>Bienvenido <strong><?php echo Value('FullName','S'); ?></strong></p>
+	                <?php if($_SESSION['UserName'] == "admin") { ?>
+		                <section>
+		                	<ul>
+		                		<li><a href="NewThread.php">Nueva Discución</a></li>
+		                		<li><a href="login.php?SessionOption=Logout">Cerrar Sesión</a></li>
+		                	</ul>
+		                </section>
+					<?php } else {?>
+		                <section>
+		                	<ul>
+		                		<li><a href="login.php?SessionOption=Logout">Cerrar Sesión</a></li>
+		                	</ul>
+		                </section>
+					<?php }?>
+	            </article>
         <?php }?>
     </form>
-</div>

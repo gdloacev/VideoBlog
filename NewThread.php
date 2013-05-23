@@ -14,7 +14,7 @@
 	$Saved = false;
 	if(isset($_POST['btnSavePicture']))
 	{
-		$target = "Images/";
+		$target = "images_blog/";
 		$target = $target . basename($_FILES['UploadFile']['name']);
 		$size = ($_FILES['UploadFile']['size'] / 1024) / 1024;
 		if($size > 0)
@@ -44,14 +44,13 @@
 		}
 		else
 		{
-			$Error .= 'El archivo excede el maximo tama&ntilde;o permitido (2 MB)';
+			$Error .= 'El archivo excede el maximo tamaño permitido (2 MB)';
 		}
 	}
 	if(isset($_POST['btnSaveThread']))
 	{
 		$Index = new Index(); 
 		$DBConn = $Index -> ConnectDB();
-		
 		$Query = 'insert into udtthread 
 		(idUser, idTheme, Title, DateFrom, idType) 
 		values 
@@ -63,7 +62,7 @@
 		from udtthread
 		where idUser = ' . $_SESSION['UserId'] . '
 		and Title = \'' . $_POST['tbTitle'] . '\'';
-		
+
 		mysql_query($Query,$DBConn);
 		mysql_query($Query2,$DBConn);
 		mysql_close($DBConn);
@@ -81,54 +80,42 @@
 		mysql_close($DBConn);
 	}
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="es">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><?php echo $ApplicationName; ?></title>
-<link rel="stylesheet" href="CSS/Style.css" type="text/css" />
+	<meta charset="utf-8" />
+	<title><?php echo $ApplicationName; ?></title>
+	<link rel="stylesheet" href="CSS/Style.css" type="text/css" />
+	<link rel="stylesheet" href="CSS/Style.css" type="text/css" />
+	<link rel="stylesheet" href="CSS/thread.css" type="text/css" />
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
     <body>
-    	<div style="width:700px;border:1px solid #003366;text-align:center;">
-            <div>
-            	<form action="NewThread.php" method="post" enctype="multipart/form-data">
-                <table id="Thread">
-                    <tr>
-                        <td>
-                            Tema:
-                        </td>
-                        <td>
-                       	  <input type="text" name="tbTitle" id="tbTitle" value="<?php echo Value('tbTitle','P'); ?>" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Mensaje:
-                        </td>
-                        <td>
-                       	  <textarea rows="8" cols="30" name="tbMessage" id="tbMessage"><?php echo Value('tbMessage','P'); ?></textarea>
-                        </td>
-                    </tr>
-					<?php if($_SESSION['UserId'] = 1 and !$Saved) { ?>
-						<tr>
-							<td style="text-align:rigth;">
-								Categoria
-							</td>
-							<td style="text-align:left;">
-								<select id="TypeSelect" name="TypeSelect">
-									<option selected="selected" value="1">Blog</option>
-									<option value="2">Algo que decirte</option>
-								</select>
-							</td>
-						</tr>
+    	<header>
+	    	<h1><?php echo $ApplicationName; ?></h1> 
+	  	</header>
+		<nav>
+	    	<ul>
+	      		<li><a href="./">Inicio</a></li>
+	    	</ul>
+		</nav>
+		<section>
+    		<article>
+	    		<h2>Nuevo Tema:</h2>
+				    <form action="NewThread.php" method="post" enctype="multipart/form-data">
+                	<label for="tbTitle">Tema:</label>
+					<input type="text" name="tbTitle" id="tbTitle" value="<?php echo Value('tbTitle','P'); ?>" required autofocus/>
+                    <label for="tbMessage">Mensaje:</label>
+					<textarea rows="8" cols="30" name="tbMessage" id="tbMessage" required><?php echo Value('tbMessage','P'); ?></textarea>
+					<?php if($_SESSION['UserName'] == "admin" and !$Saved) { ?>
+							<label for="TypeSelect">Categoria:</label>
+							<select id="TypeSelect" name="TypeSelect">
+								<option selected="selected" value="1">Blog</option>
+								<option value="2">Algo que decirte</option>
+							</select>
 					<?php } ?>
 					<?php if($Saved) { ?>
-						<tr>
-							<td>
-								Imagenes:
-							</td>
-							<td>
-								<table>
+							<h3>Imagenes:</h3>
 									<?php
 										$Index = new Index(); 
 										$DBConn3 = $Index -> ConnectDB();
@@ -144,54 +131,30 @@
 										
 										//echo $Query;
 										$Results = @mysql_query($Query,$DBConn3);
-				
+										
 										if(@mysql_num_rows($Results) > 0)
 										{
 											while($row = mysql_fetch_array($Results))
 											{ ?>
-													<tr>
-														<td><?php echo $row['Title']; ?></td>
-														<td>
+														<p><?php echo $row['Title']; ?></p>
 															<!--<a href="NewThread.php?picid=<?php echo $row['id']; ?>">Borrar</a>-->
-														</td>
-													</tr>
 											<?php }
 										}
 									?>
-								</table>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2" style="text-align:center;">
 								<input type="file" name="UploadFile" id="UploadFile" /><br />
 								<input name="btnSavePicture" type="submit" id="btnSavePicture" value="Subir Foto" />
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
 								<a href="index.php">Terminar</a>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<?php if(isset($Error)) {echo $Error;} ?>
-							</td>
-						</tr>
+								<p><?php if(isset($Error)) {echo $Error;} ?></p>
 					<?php } else {?>
-					<tr>
-						<td colspan="2">
 							<input name="btnSaveThread" type="submit" id="btnSaveThread" value="Guardar" />
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<a href="index.php">Cancelar</a>
-						</td>
-					</tr>
 					<?php } ?>
-                </table>
                 </form>
-            </div>
-        </div>
+	        </article>
+        </section>
+      	<footer>
+	   	 <small>Copyright &copy; 2013. Todos los derechos reservados. Oscar Aceves.</small>
+	  	</footer>
+		<!-- JavaScript -->
+  		<script src="Scripts/prefixfree.min.js"></script>
     </body>
 </html>
